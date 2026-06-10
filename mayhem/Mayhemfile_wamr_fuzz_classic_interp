@@ -1,0 +1,8 @@
+project: wamr
+target: wamr_fuzz_classic_interp
+testsuite:
+  - file:///mayhem/mayhem/testsuite/wamr_fuzz_classic_interp
+cmds:
+  - cmd: /mayhem/wamr_fuzz_classic_interp
+    libfuzzer: true
+    dictionary: /mayhem/mayhem/wamr_fuzz.dict

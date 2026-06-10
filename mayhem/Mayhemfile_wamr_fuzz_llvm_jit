@@ -1,0 +1,8 @@
+project: wamr
+target: wamr_fuzz_llvm_jit
+testsuite:
+  - file:///mayhem/mayhem/testsuite/wamr_fuzz_llvm_jit
+cmds:
+  - cmd: /mayhem/wamr_fuzz_llvm_jit
+    libfuzzer: true
+    dictionary: /mayhem/mayhem/wamr_fuzz.dict

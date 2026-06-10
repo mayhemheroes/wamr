@@ -1,0 +1,8 @@
+project: wamr
+target: wamr_fuzz_aot_compiler
+testsuite:
+  - file:///mayhem/mayhem/testsuite/wamr_fuzz_aot_compiler
+cmds:
+  - cmd: /mayhem/wamr_fuzz_aot_compiler
+    libfuzzer: true
+    dictionary: /mayhem/mayhem/wamr_fuzz.dict

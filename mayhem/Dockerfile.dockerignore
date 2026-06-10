@@ -1,0 +1,18 @@
+# Build-context filter for mayhem/Dockerfile ONLY. BuildKit uses `<dockerfile-path>.dockerignore`
+# (this file) IN PREFERENCE to the context-root `.dockerignore` when building with `-f mayhem/Dockerfile`.
+#
+# Upstream wamr's root `.dockerignore` excludes ALL root dotfiles via a `.*` glob (to slim its own
+# wasi-nn test image) — which drops `.git`, so the commit image would carry NO git history. Our spec
+# REQUIRES baking the FULL repo incl. `.git` history into the commit image (the grader / PATCH tier
+# uses it — SPEC §6.2 item 2). This additive override keeps `.git` while pruning the SAME heavy build
+# trees upstream prunes, so the build context is identical to today's PLUS `.git`. It never modifies
+# the upstream-tracked root `.dockerignore` (keeps the mayhem layer a clean additive replay).
+
+# Heavy / generated trees — mirror upstream's root .dockerignore, MINUS the `.*` dotfile catch-all.
+**/build
+**/tmp.*
+**/*.gguf
+/core/deps/
+!/core/deps/tensorflow-src
+/samples
+/tests

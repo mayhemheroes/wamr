@@ -1,0 +1,66 @@
+# libFuzzer dictionary for the WebAssembly binary format (WAMR wasm_runtime_load).
+# Tokens are the magic/version header + the section-id leading bytes + a few common
+# type/limit/opcode markers. These steer the mutator toward structurally-valid .wasm
+# modules so it reaches deeper loader/validator/interpreter code instead of bouncing
+# off the magic-number check.
+
+# --- module header: "\0asm" + version 1 ---
+magic="\x00\x61\x73\x6d"
+version_1="\x01\x00\x00\x00"
+header="\x00\x61\x73\x6d\x01\x00\x00\x00"
+
+# --- section ids (1-byte leading id of each section) ---
+sec_custom="\x00"
+sec_type="\x01"
+sec_import="\x02"
+sec_function="\x03"
+sec_table="\x04"
+sec_memory="\x05"
+sec_global="\x06"
+sec_export="\x07"
+sec_start="\x08"
+sec_element="\x09"
+sec_code="\x0a"
+sec_data="\x0b"
+sec_datacount="\x0c"
+
+# --- type-section building blocks ---
+func_type="\x60"
+type_i32="\x7f"
+type_i64="\x7e"
+type_f32="\x7d"
+type_f64="\x7c"
+type_v128="\x7b"
+type_funcref="\x70"
+type_externref="\x6f"
+
+# --- limits / mutability flags ---
+limit_min="\x00"
+limit_min_max="\x01"
+mut_const="\x00"
+mut_var="\x01"
+
+# --- export kinds ---
+export_func="\x00"
+export_table="\x01"
+export_mem="\x02"
+export_global="\x03"
+
+# --- a few common opcodes ---
+op_unreachable="\x00"
+op_nop="\x01"
+op_block="\x02"
+op_loop="\x03"
+op_if="\x04"
+op_end="\x0b"
+op_call="\x10"
+op_local_get="\x20"
+op_i32_const="\x41"
+op_i64_const="\x42"
+op_return="\x0f"
+op_drop="\x1a"
+
+# --- common export name strings ---
+name_memory="memory"
+name_main="main"
+name_start="_start"
